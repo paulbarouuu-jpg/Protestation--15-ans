@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier n°15 — Confiscation des réseaux</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root{
+  --paper: #ddd0b0;
+  --paper-dark: #cbbd98;
+  --ink: #211d16;
+  --stamp: #a6291e;
+  --stamp-dark: #7c1e15;
+  --teal: #3e5c54;
+  --folder: #c8a165;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  background:var(--paper);
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(0,0,0,0.03) 0, transparent 50%),
+    radial-gradient(circle at 80% 60%, rgba(0,0,0,0.04) 0, transparent 60%);
+  color:var(--ink);
+  font-family:'JetBrains Mono', monospace;
+  line-height:1.6;
+  overflow-x:hidden;
+}
+
+.grain{
+  position:fixed; inset:0; pointer-events:none; z-index:999; opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+a{color:inherit;}
+
+/* ---------- Header / dossier tab ---------- */
+.dossier-bar{
+  background:var(--ink);
+  color:var(--paper);
+  font-family:'JetBrains Mono', monospace;
+  font-size:.72rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  padding:.6rem 1.5rem;
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:.4rem;
+}
+
+/* ---------- Hero ---------- */
+.hero{
+  position:relative;
+  padding:4.5rem 1.5rem 5rem;
+  max-width:900px;
+  margin:0 auto;
+  border-left:2px dashed rgba(33,29,22,.25);
+  border-right:2px dashed rgba(33,29,22,.25);
+}
+.case-number{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.78rem;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--teal);
+  margin-bottom:1.2rem;
+}
+.case-number span{color:var(--stamp); font-weight:700;}
+
+h1.headline{
+  font-family:'Oswald', sans-serif;
+  font-weight:700;
+  font-size:clamp(2.6rem, 8vw, 5rem);
+  text-transform:uppercase;
+  line-height:.98;
+  letter-spacing:-.01em;
+  max-width:11ch;
+}
+
+.sub{
+  margin-top:1.5rem;
+  max-width:52ch;
+  font-family:'Special Elite', monospace;
+  font-size:1.05rem;
+  color:#3a352a;
+}
+
+.stamp{
+  position:absolute;
+  top:2.2rem;
+  right:1rem;
+  width:190px;
+  height:190px;
+  border:6px solid var(--stamp);
+  border-radius:50%;
+  color:var(--stamp);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-family:'Oswald',sans-serif;
+  font-weight:700;
+  font-size:1.35rem;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  transform:rotate(-16deg);
+  opacity:.92;
+  mix-blend-mode:multiply;
+  animation:stampIn .5s ease-out .3s both;
+}
+.stamp::before, .stamp::after{
+  content:"";
+  position:absolute;
+  inset:8px;
+  border:1.5px solid var(--stamp);
+  border-radius:50%;
+}
+.stamp::after{inset:14px;}
+
+@keyframes stampIn{
+  0%{transform:rotate(-16deg) scale(2.4); opacity:0;}
+  60%{opacity:.95;}
+  100%{transform:rotate(-16deg) scale(1); opacity:.92;}
+}
+
+@media (max-width:640px){
+  .stamp{position:static; margin-top:2rem; transform:rotate(-8deg);}
+}
+
+/* ---------- Section shells ---------- */
+.piece{
+  max-width:900px;
+  margin:0 auto;
+  padding:3.2rem 1.5rem;
+  border-left:2px dashed rgba(33,29,22,.25);
+  border-right:2px dashed rgba(33,29,22,.25);
+  border-top:2px dashed rgba(33,29,22,.25);
+}
+.piece:last-of-type{border-bottom:2px dashed rgba(33,29,22,.25);}
+
+.piece-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.75rem;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--teal);
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+  margin-bottom:1rem;
+}
+.piece-label::before{
+  content:"";
+  width:10px; height:10px;
+  background:var(--stamp);
+  display:inline-block;
+}
+
+h2{
+  font-family:'Oswald', sans-serif;
+  font-weight:600;
+  text-transform:uppercase;
+  font-size:clamp(1.5rem, 4vw, 2.1rem);
+  letter-spacing:-.01em;
+  margin-bottom:1rem;
+  max-width:22ch;
+}
+
+.piece p{
+  max-width:62ch;
+  font-size:.98rem;
+  color:#2c2820;
+}
+.piece p + p{margin-top:.9rem;}
+
+/* ---------- Arguments grid ---------- */
+.exhibits{
+  display:grid;
+  gap:1.4rem;
+  margin-top:1.6rem;
+}
+.exhibit{
+  background:var(--folder);
+  background-image:linear-gradient(180deg, rgba(255,255,255,.12), rgba(0,0,0,.04));
+  border:1px solid rgba(33,29,22,.25);
+  padding:1.4rem 1.5rem;
+  position:relative;
+}
+.exhibit::before{
+  content:attr(data-tag);
+  position:absolute;
+  top:-.6rem;
+  left:1.2rem;
+  background:var(--ink);
+  color:var(--paper);
+  font-family:'JetBrains Mono',monospace;
+  font-size:.65rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  padding:.2rem .55rem;
+}
+.exhibit h3{
+  font-family:'Oswald',sans-serif;
+  font-size:1.15rem;
+  text-transform:uppercase;
+  margin-bottom:.5rem;
+  letter-spacing:.01em;
+}
+.exhibit p{font-size:.93rem; color:#2c2820; max-width:60ch;}
+
+/* ---------- Redacted / counter view ---------- */
+.counter{
+  background:#c9c2ab;
+}
+.redacted{
+  display:inline-block;
+  background:var(--ink);
+  color:var(--ink);
+  padding:0 .3em;
+  border-radius:2px;
+  user-select:none;
+}
+.counter-box{
+  border:1px solid rgba(33,29,22,.3);
+  background:rgba(255,255,255,.25);
+  padding:1.3rem 1.5rem;
+  margin-top:1.2rem;
+}
+.counter-box h3{
+  font-family:'Oswald',sans-serif;
+  text-transform:uppercase;
+  font-size:1rem;
+  margin-bottom:.6rem;
+  color:var(--stamp-dark);
+}
+.counter-box p{font-size:.92rem; color:#2c2820; max-width:60ch;}
+.counter-box p + p{margin-top:.6rem;}
+
+/* ---------- Resource strip ---------- */
+.resource-strip{
+  display:flex;
+  flex-wrap:wrap;
+  gap:1rem;
+  margin-top:1.6rem;
+}
+.resource{
+  flex:1 1 220px;
+  border:1.5px solid var(--ink);
+  padding:1rem 1.1rem;
+  background:rgba(255,255,255,.35);
+}
+.resource .num{
+  font-family:'Oswald',sans-serif;
+  font-weight:700;
+  font-size:1.6rem;
+  color:var(--teal);
+}
+.resource .label{font-size:.82rem; margin-top:.2rem;}
+
+/* ---------- Signature / CTA ---------- */
+.verdict{
+  max-width:900px;
+  margin:0 auto;
+  padding:3.5rem 1.5rem 5rem;
+  border-left:2px dashed rgba(33,29,22,.25);
+  border-right:2px dashed rgba(33,29,22,.25);
+  border-bottom:2px dashed rgba(33,29,22,.25);
+  text-align:center;
+}
+.verdict h2{margin:0 auto 1rem; max-width:none;}
+.verdict p{max-width:52ch; margin:0 auto 2rem; font-size:.98rem;}
+
+.signature-line{
+  max-width:420px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  gap:.4rem;
+  align-items:center;
+}
+.sign-input{
+  width:100%;
+  border:none;
+  border-bottom:2px solid var(--ink);
+  background:transparent;
+  font-family:'Special Elite', monospace;
+  font-size:1.1rem;
+  text-align:center;
+  padding:.5rem;
+  color:var(--ink);
+}
+.sign-input:focus{outline:none; border-bottom-color:var(--stamp);}
+.sign-caption{font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--teal);}
+
+.sign-btn{
+  margin-top:1.4rem;
+  background:var(--stamp);
+  color:var(--paper);
+  border:none;
+  font-family:'Oswald',sans-serif;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  font-size:.95rem;
+  padding:.85rem 2.2rem;
+  cursor:pointer;
+  transition:transform .15s ease, background .15s ease;
+}
+.sign-btn:hover{background:var(--stamp-dark); transform:translateY(-2px);}
+.sign-btn:focus-visible{outline:3px solid var(--teal); outline-offset:3px;}
+
+.confirm{
+  margin-top:1.2rem;
+  font-family:'Special Elite',monospace;
+  font-size:.95rem;
+  color:var(--teal);
+  min-height:1.4em;
+}
+
+.privacy-note{
+  margin-top:.9rem;
+  font-size:.72rem;
+  letter-spacing:.03em;
+  color:#6b6355;
+  max-width:340px;
+}
+
+.counter-display{
+  margin:1.6rem auto 0;
+  display:inline-flex;
+  align-items:baseline;
+  gap:.6rem;
+  border:1.5px solid var(--ink);
+  padding:.7rem 1.4rem;
+  background:rgba(255,255,255,.35);
+}
+.counter-display .count{
+  font-family:'Oswald',sans-serif;
+  font-weight:700;
+  font-size:2rem;
+  color:var(--stamp);
+}
+.counter-display .count-label{
+  font-size:.72rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--teal);
+}
+
+footer{
+  text-align:center;
+  font-size:.72rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#6b6355;
+  padding:2rem 1.5rem 3rem;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .stamp{animation:none;}
+}
+
+@media (min-width:720px){
+  .exhibits{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<div class="dossier-bar">
+  <span>Dossier n° 15 / réseaux sociaux</span>
+  <span>Statut — en instruction</span>
+</div>
+
+<section class="hero">
+  <div class="case-number">Pièce jointe — projet de loi <span>-15 ans</span></div>
+  <h1 class="headline">On nous confisque nos réseaux</h1>
+  <p class="sub">Pendant qu'on débat de nous couper des réseaux sociaux, les vrais problèmes — le harcèlement, les violences, la sécurité — attendent. Voici le dossier de ce qui cloche dans cette loi.</p>
+  <div class="stamp">Confisqué</div>
+</section>
+
+<section class="piece">
+  <div class="piece-label">Pièce 01 — le constat</div>
+  <h2>Une loi qui vise le symptôme, pas le problème</h2>
+  <p>Le cyberharcèlement existe, personne ne le nie. Mais interdire les réseaux sociaux à tous les moins de 15 ans, c'est traiter tout un âge comme un problème à isoler plutôt que comme des jeunes à outiller. Ça revient à confisquer l'outil au lieu de s'attaquer à celles et ceux qui l'utilisent pour nuire.</p>
+  <p>Il y a déjà des dispositifs qui existent pour signaler, accompagner et sanctionner le harcèlement en ligne. Le problème, c'est qu'ils sont trop peu connus et trop peu financés — pas qu'il manque une interdiction générale.</p>
+</section>
+
+<section class="piece">
+  <div class="piece-label">Pièce 02 — les priorités</div>
+  <h2>Ce qu'on aimerait voir traité en premier</h2>
+  <div class="exhibits">
+    <div class="exhibit" data-tag="Exhibit A">
+      <h3>Les vraies urgences</h3>
+      <p>Sécurité du quotidien, moyens pour lutter contre les vols, prévention concrète — ce sont des sujets qui touchent tout le monde directement et qui semblent moins prioritaires que cette interdiction.</p>
+    </div>
+    <div class="exhibit" data-tag="Exhibit B">
+      <h3>Des outils existants, sous-utilisés</h3>
+      <p>Signalement, modération, numéros d'aide : des solutions concrètes existent déjà contre le harcèlement en ligne. Elles mériteraient d'être renforcées plutôt que contournées par une interdiction totale.</p>
+    </div>
+    <div class="exhibit" data-tag="Exhibit C">
+      <h3>L'éducation plutôt que l'interdiction</h3>
+      <p>Apprendre à se protéger, à repérer le harcèlement, à réagir — ça responsabilise. Une interdiction, elle, ne prépare à rien une fois qu'elle est levée.</p>
+    </div>
+    <div class="exhibit" data-tag="Exhibit D">
+      <h3>La confiance envers les jeunes</h3>
+      <p>Beaucoup de moins de 15 ans utilisent déjà les réseaux de façon responsable, pour s'informer, créer, rester en lien. Une loi générale ne fait pas de différence entre un usage sain et un usage à risque.</p>
+    </div>
+  </div>
+</section>
+
+<section class="piece counter">
+  <div class="piece-label">Pièce 03 — l'autre son de cloche</div>
+  <h2>Ce que disent les partisans de la loi</h2>
+  <p>Pour être honnête avec ce dossier, il faut aussi présenter l'autre camp : celles et ceux qui portent cette loi s'appuient sur des constats réels.</p>
+  <div class="counter-box">
+    <h3>Leurs arguments principaux</h3>
+    <p>L'exposition précoce aux réseaux sociaux est associée, selon plusieurs études, à des risques pour la santé mentale des adolescents : troubles du sommeil, anxiété, comparaison sociale. Les algorithmes sont conçus pour capter l'attention, pas pour protéger les plus jeunes.</p>
+    <p>Le cyberharcèlement touche une part importante des collégiens et peut avoir des conséquences graves. Pour les défenseurs de la loi, fixer un âge minimum clair est plus simple à faire respecter que de compter uniquement sur l'éducation ou la modération, qui restent inégales d'un établissement ou d'une famille à l'autre.</p>
+  </div>
+</section>
+
+<section class="piece">
+  <div class="piece-label">Pièce 04 — ressources utiles, dès maintenant</div>
+  <h2>En cas de harcèlement, ça existe déjà</h2>
+  <p>Sans attendre la loi, voici des dispositifs français à connaître et à faire connaître :</p>
+  <div class="resource-strip">
+    <div class="resource"><div class="num">3018</div><div class="label">Numéro nationale contre le harcèlement, en ligne comme hors ligne — gratuit, appel et tchat</div></div>
+    <div class="resource"><div class="num">3020</div><div class="label">Numéro contre le harcèlement scolaire</div></div>
+    <div class="resource"><div class="num">e-enfance</div><div class="label">Association qui gère le 3018 et accompagne les familles</div></div>
+  </div>
+</section>
+
+<section class="verdict">
+  <div class="piece-label" style="justify-content:center;">Verdict</div>
+  <h2>Le débat mérite mieux qu'une interdiction totale</h2>
+  <p>Signez pour dire qu'il faut s'attaquer au harcèlement en ligne — sans confisquer les réseaux à toute une génération.</p>
+  <form class="signature-line" onsubmit="return false;">
+    <input class="sign-input" type="text" placeholder="Votre nom" id="signName" required>
+    <span class="sign-caption">signature du dossier</span>
+    <button class="sign-btn" id="signBtn">Signer le dossier</button>
+    <div class="confirm" id="confirmMsg"></div>
+    <p class="privacy-note">Votre nom est envoyé de façon sécurisée et n'est jamais affiché publiquement sur le site — seul le nombre total de signatures est visible. Merci à toutes les personnes qui signeront !</p>
+  </form>
+  <div class="counter-display">
+    <span class="count" id="signCount">—</span>
+    <span class="count-label">signatures</span>
+  </div>
+</section>
+
+<footer>Dossier citoyen — non affilié à une administration</footer>
+
+<script>
+const FORMSPREE_URL = 'https://formspree.io/f/mgogbown';
+
+const countEl = document.getElementById('signCount');
+const btn = document.getElementById('signBtn');
+const msg = document.getElementById('confirmMsg');
+let alreadySigned = false;
+let localCount = 0;
+
+// Compteur approximatif propre à ce navigateur (pas de compteur public
+// partagé sans base de données côté serveur — voir la note sous le formulaire).
+try{
+  const saved = window.name && window.name.startsWith('sigcount:') ? window.name.split(':')[1] : null;
+  if(saved) localCount = parseInt(saved, 10) || 0;
+} catch(e){ /* ignore */ }
+countEl.textContent = String(localCount);
+
+btn.addEventListener('click', async function(){
+  if(alreadySigned) return;
+
+  const name = document.getElementById('signName').value.trim();
+  if(!name){
+    msg.textContent = "Merci d'indiquer votre nom avant de signer.";
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Envoi…';
+
+  try{
+    const response = await fetch(FORMSPREE_URL, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nom: name, dossier: 'Loi -15 ans — réseaux sociaux' })
+    });
+
+    if(response.ok){
+      alreadySigned = true;
+      localCount += 1;
+      countEl.textContent = String(localCount);
+      window.name = 'sigcount:' + localCount;
+      btn.textContent = 'Déjà signé — merci !';
+      msg.textContent = "Merci, " + name + " — votre signature a bien été envoyée.";
+    } else {
+      throw new Error('Réponse non valide');
+    }
+  } catch(e){
+    btn.disabled = false;
+    btn.textContent = 'Signer le dossier';
+    msg.textContent = "L'envoi a échoué, merci de réessayer dans un instant.";
+  }
+});
+</script>
+
+</body>
+</html>
